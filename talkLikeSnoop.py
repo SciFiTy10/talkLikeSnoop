@@ -2,101 +2,214 @@
 from random import randint
 
 #set of stop words that will be applied
-stop_words = ['i', 'I', 'me', 'much', 'my', 'many', 'myself', 'we', 'our', 'ours', 'ourselves', 'you', 'your', 'yours', 'yourself','yourselves', 'he', 'him', 'his', 'himself', 'she', 'her', 'hers', 'herself', 'it', 'its', 'itself', 'they', 'them', 'their', 'theirs', 'themselves', 'what', 'which', 'who', 'whom', 'this', 'that','these','those', 'am', 'is', 'are', 'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had', 'having', 'do', 'does', 'did', 'doing', 'a', 'an', 'the', 'and', 'but', 'if', 'or', 'because', 'as', 'until', 'while', 'of','at', 'by', 'for', 'with', 'about', 'against', 'between', 'into', 'through', 'during', 'before', 'after', 'above', 'below','to', 'from', 'up', 'down', 'in', 'out', 'on', 'off', 'over', 'under', 'again', 'further', 'then','once', 'here','there', 'when', 'where', 'why', 'how', 'all', 'any', 'both', 'each', 'few', 'more', 'most', 'other', 'some', 'such','no', 'nor', 'not', 'only', 'own', 'same', 'so', 'than', 'too', 'very', 's', 't', 'can', 'will','just', 'don', 'should','now', 'd', 'll', 'm', 'o', 're', 've', 'y', 'ain', 'aren', 'couldn', 'didn', 'doesn', 'hadn', 'hasn', 'haven', 'isn', 'ma','mightn', 'mustn', 'needn', 'shan', 'shouldn', 'wasn', 'weren', 'won', 'wouldn']
+stop_words = ['me', 'much', 'my', 'many', 'myself', 'we', 'he', 'him', 'his', 'himself', 'she', 'her', 'hers', 'herself', 'they', 'them', 'their', 'theirs', 'themselves', 'what', 'which', 'who', 'whom', 'this', 'that','these','those', 'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had', 'having', 'do', 'does', 'did', 'doing', 'the', 'but', 'if', 'because', 'while', 'by', 'for', 'with', 'between', 'through', 'during', 'before', 'below','to', 'two', 'from', 'down', 'further', 'then','here','there', 'when', 'where', 'why', 'how', 'both','few', 'more', 'most', 'some', 'such','no', 'nor', 'not', 'same', 'so', 'than', 'too', 'very', 'can', 'will','just', 'should','now', 'won']
 
 vowels = ["a", "e", "i", "o", "u", "y"]
 
-#loop to go through a string
-def locateVowelsInWord(word):
-    #start a counter for vowels in a word
-    vowelCount = 0
+#function for editing from the back of the word
+def backwardInsert(word):
 
-    #create a variable for the location of the vowel we will edit on
-    indexOfVowel = 0
+    #var for lastFiveLetters
+    lastFiveLetters = word[len(word)-5:len(word)]
+    #var for lastFourLetters
+    lastFourLetters = word[len(word)-4:len(word)]
+    #var for lastThreeLetters
+    lastThreeLetters = word[len(word)-3:len(word)]
+    #var for lastTwoLetters
+    lastTwoLetters = word[len(word)-2:len(word)]
 
-    #loop through each word from the end to the beginning
-    for e in range(len(word) - 1, -1, -1):
-        #if it has a vowel, increment the vowelCount
-        if word[e] in vowels:
-            #increment the vowelCount
-            vowelCount += 1
-
-            #if the count is 1, then we insert izzle on the vowel and cut out everything after
-            if vowelCount == 1:
-                #set the indexOfVowel to the place where the single vowel is
-                indexOfVowel = e
-            #if the count is 2, then we insert the izzle on the 2nd to last vowel and cut everything after
-            elif vowelCount == 2:
-                #set the indexOfVowel to the place where the single vowel is
-                indexOfVowel = e
-    #pass the word and it's indexOfVowel to the insertIzzle function
-    newString = insertIzzle(word, indexOfVowel)
-    #return the string to the previous function
-    return newString
-
-
-#function for editing the word for izzle
-def insertIzzle(word, indexOfVowel):
-    #get the letters at the second to last and the last index
-    lastIndex = len(word)-1
-    secondToLastIndex = len(word)-2
-    thirdToLastIndex = len(word)-3
-    #if those combined are "ed" then we want to put "izzled"
-    if word[secondToLastIndex] + word[lastIndex] == "ed":
-        newString = word[0:indexOfVowel] + "izzled"
-    #if the word is sure, make it shizzle
-    elif word == "sure":
-        newString = word[0:indexOfVowel] + "hizzle"
-    #if the word ends with 's' then make it izzles
-    elif word[lastIndex] == "s":
-        newString = word[0:indexOfVowel] + "izzles"
-
-    #if the word ends with 'ing' then make it izzling
-    elif word[thirdToLastIndex] + word[secondToLastIndex] + word[lastIndex] == "ing":
-        newString = word[0:indexOfVowel] + "izzling"
-
+    #check cases for tion 
+    if 'ation' == lastFiveLetters:
+        #get the index of the letters
+        index = word.index('ation')
+        #insert ayshizzle into at that index
+        word = word[:index] + 'ayshizzle'
+        return word
+    if 'etion' == lastFiveLetters:
+        #get the index of the letters
+        index = word.index('etion')
+        #insert eeshizzle into at that index
+        word = word[:index] + 'eeshizzle'
+        return word
+    if 'ition' == lastFiveLetters:
+        #get the index of the letters
+        index = word.index('ition')
+        #insert ishizzle into at that index
+        word = word[:index] + 'ishizzle'
+        return word
+    if 'otion' == lastFiveLetters:
+        #get the index of the letters
+        index = word.index('otion')
+        #insert ohshizzle into at that index
+        word = word[:index] + 'ohshizzle'
+        return word
+    if 'ution' == lastFiveLetters:
+        #get the index of the letters
+        index = word.index('ution')
+        #insert ooshizzle into at that index
+        word = word[:index] + 'ooshizzle'
+        return word
+    if 'tion' == lastFourLetters:
+        #get the index of the letters
+        index = word.index('tion')
+        #insert ooshizzle into at that index
+        word = word[:index] + 'shizzle'
+        return word
+    #check special case if ending is "ght"
+    if 'ght' == lastThreeLetters:
+        #loop through each word from the end to the beginning
+        for e in range(len(word) - 4, -1, -1):
+            #if the letter is a consonant
+            if word[e] not in vowels:
+                #get the index of the letter
+                index = word.rfind(word[e+1])
+                #insert the izz into at that index
+                word = word[:index] + 'izz' + word[index:]
+                #break the loop
+                break
+        return word  
+    #check special case if ending is "ing"
+    if 'ing' == lastThreeLetters:
+        #loop through each word from the end to the beginning
+        for e in range(len(word) - 4, -1, -1):
+            #if the letter is a consonant
+            if word[e] not in vowels:
+                #get the index of the letter
+                index = word.rfind(word[e+1])
+                #insert the izz into at that index
+                word = word[:index] + 'izzling'
+                #break the loop
+                break
+        return word
+    #handle whether last two letters "es"
+    if 'es' == lastTwoLetters:
+        #loop through each word from the end to the beginning
+        for e in range(len(word) - 3, -1, -1):
+            #if the letter is a consonant
+            if word[e] not in vowels:
+                #get the index of the letter
+                index = word.rfind(word[e+1])
+                #insert the izz into at that index
+                word = word[:index] + 'izzles'
+                #break the loop
+                break
+        return word
+    #handle whether last two letters "ed"
+    if 'ed' == lastTwoLetters:
+        #loop through each word from the end to the beginning
+        for e in range(len(word) - 3, -1, -1):
+            #if the letter is a consonant
+            if word[e] not in vowels:
+                #get the index of the letter
+                index = word.rfind(word[e+1])
+                #insert the izz into at that index
+                word = word[:index] + 'izzled'
+                #break the loop
+                break
+        return word
+    #check special case if ending is "sh"
+    if 'sh' == lastTwoLetters:
+        #loop through each word from the end to the beginning
+        for e in range(len(word) - 3, -1, -1):
+            #if the letter is a consonant
+            if word[e] not in vowels:
+                #get the index of the letter
+                index = word.rfind(word[e+1])
+                #insert the izz into at that index
+                word = word[:index] + 'izz' + word[index:]
+                #break the loop
+                break
+        return word 
+    #handle whether last two letters are consonant then vowel
+    if  (lastTwoLetters[0] not in vowels) & (lastTwoLetters[1] in vowels):
+            #get the index of the letter
+            index = word.index(word[len(word)-1])
+            #insert the izz into at that index
+            word = word[:index] + 'izzle'    
+            return word
+    #handle whether last two letters are both consonants
+    if  (lastTwoLetters[0] not in vowels) & (lastTwoLetters[1] not in vowels):
+            #if the last letter is an s
+            if lastTwoLetters[1] == 's':
+                #get the index of the letter
+                index = word.index(word[len(word)-1])
+                #insert the izz into at that index
+                word = word[:index] + 'izzles'
+            else:
+                #insert the izz into at that index
+                word = word + 'izzle'    
+            return word
     else:
-        newString = word[0:indexOfVowel] + "izzle"
-
-    # if word[len(word)] == "d":
-    #     print("this word ends with d")
-    #create a variable for the newString
-    #newString = word[0:indexOfVowel] + "izzle"
-    #return newString to the previous function
-    return newString
+        for e in range(len(word) - 3, -1, -1):
+            #if the letter is a consonant
+            if word[e] not in vowels:
+                #get the index of the letter
+                index = word.rfind(word[e+1])
+                #insert the izz into at that index
+                word = word[:index] + 'izzle'
+                #break the loop
+                break
+        return word
+    
+    
+#function for editing from the beginning of the word
+def forwardInsert(word):
+    #start the loop at the beginning and add izz in front of the first vowel
+    for letter in word:
+        #if the letter is a vowel
+        if(letter in vowels):
+            #get the index of the letter
+            index = word.index(letter)
+            #insert the izz into at that index
+            word = word[:index] + 'izz' + word[index:]
+            #break the loop
+            break
+    return word
 
 
 def convertToSnoop(words):
-    #create a variable to hold the new sentence
-    convertedString = ""
 
-    # #loop through words and get each individual word
+    #loop through words and get each individual word
     for i in range(len(words)):
         #get the word from the words list
         word = words[i]
 
-
-
         #check to see if the word is a stop word
         if word in stop_words:
-            #append to the convertedString
-            convertedString = convertedString + " " + word
+            #skip to the next word
+            continue
 
         #check to see if the first letter is a vowel
-        elif word[0] in vowels:
-            #append to the convertedString
-            convertedString = convertedString + " " + word
-
+        if word[0] in vowels:
+            #skip to the next word
+            continue
+        #check if word is "sure"
+        if word == 'sure':
+            word = 'shizzle'
+            continue
         #else the word begins with a consonant
         else:
-            #pass a word to the wordVowels function
-            newString = locateVowelsInWord(word)
+            #get the length of the word
+            lengthOfWord = len(word)
 
-            #append to the convertedString
-            convertedString = convertedString + " " + newString
-
-    #return this string to the talkLikeSnoop_intent
-    return convertedString
+            #check if the length is < 7 letters
+            if lengthOfWord < 7:
+                #add izz into the word
+                word = forwardInsert(word)
+                #insert that word back into it's proper place
+                words[i] = word
+                #skip to the next word
+                continue
+            #otherwise the word is 7 or more letters
+            else:
+                #add izz into the word
+                word = backwardInsert(word)
+                #insert that word back into it's proper place
+                words[i] = word
+                #skip to the next word
+                continue
+    #return the words split by a string
+    return " ".join(words)           
 
 
 ##############################
@@ -159,7 +272,7 @@ def on_launch(event, context):
     #change this title to reflect the skill
     #call another function to work with the welcome portion of the skill
     #for the 2nd parameter
-
+    
     #passing false on_launch
     shouldEndSession = False
     return statement("Welcome to the TalkLikeSnoop Skill!", welcomeToTalkLikeSnoop(), shouldEndSession)
@@ -226,7 +339,7 @@ def build_response(message, session_attributes={}):
 #if a specific intent is selected, this is where that logic is routed
 def intent_router(event, context):
     intent = event['request']['intent']['name']
-
+    
 
     # Custom Intents
     if intent == "talkLikeSnoop":
@@ -254,18 +367,17 @@ def intent_router(event, context):
 ##############################
 
 def talkLikeSnoop_intent(event, context):
-    #here is where we get the user's input
-    #words = event['request']['intent']['name']['slots']['customerQuery']['value']
+    #get the user's input
     words = event['request']['intent']['slots']['customerQuery']['value']
-    print(words)
-    #get all of the individual words from the example_text
+
+    #get all of the individual words from the user's input
     words = words.split(" ")
 
     #set a variable to catch convertedString after passing words through convertToSnoop
     convertedString = convertToSnoop(words)
-
+    
     #make sure this loops
     shouldEndSession = False
-
+    
     #print this to the user
     return statement("Snoop says", convertedString + "\n\n " + repromptTalkLikeSnoop(), shouldEndSession)
