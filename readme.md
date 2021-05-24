@@ -21,10 +21,6 @@ didn't izzle as well as words that began with consonants. I also changed the alg
 so if a word ends with "ed," then it becomes "izzled." The same thing goes for "ing"
  becoming "izzling," and "s" becoming "izzles."
 
-**Note:**
-I did not have much practice with version control, so I am only now creating a repository
-to track versions post release of my skill. There is still much to improve!
-
 **For feedback:**
 
 Please do not hesitate to message me if you see anything that looks out of place, or could be improved.

@@ -1,59 +1,14 @@
 #imports
 from stop_words import stop_words   
 from messages import welcome, reprompt
-from insert_methods import forward_insert, backward_insert   
-
-
-def convertToSnoop(words):
-
-    #loop through words and get each individual word
-    for i in range(len(words)):
-        #get the word from the words list
-        word = words[i]
-
-        #check to see if the word is a stop word
-        if word in stop_words:
-            #skip to the next word
-            continue
-
-        #check to see if the first letter is a vowel
-        if word[0] in vowels:
-            #skip to the next word
-            continue
-        #check if word is "sure"
-        if word == 'sure':
-            word = 'shizzle'
-            continue
-        #else the word begins with a consonant
-        else:
-            #get the length of the word
-            lengthOfWord = len(word)
-
-            #check if the length is < 7 letters
-            if lengthOfWord < 7:
-                #add izz into the word
-                word = forward_insert(word)
-                #insert that word back into it's proper place
-                words[i] = word
-                #skip to the next word
-                continue
-            #otherwise the word is 7 or more letters
-            else:
-                #add izz into the word
-                word = backward_insert(word)
-                #insert that word back into it's proper place
-                words[i] = word
-                #skip to the next word
-                continue
-    #return the words split by a string
-    return " ".join(words)           
-
+from insert_methods import forward_insert, backward_insert, convert_to_snoop
+from custom_intents import talk_like_snoop_intent
 
 ##############################
 # Program Entry
 ##############################
 
-#lambda_handler - this is like main()
+#lambda_handler (this is like main())
 def lambda_handler(event, context):
     #event is a python dictionary
     #LaunchRequest is an object that means the user made a request to a skill, but didn't specify the intent
@@ -71,14 +26,14 @@ def on_launch(event, context):
 
     #passing false on_launch
     shouldEndSession = False
-    return statement("Welcome to the TalkLikeSnoop Skill!", welcome(), shouldEndSession)
+    return statement("Welcome to the Talk Like Snoop Skill!", welcome(), shouldEndSession)
 
 ##############################
 # Responses
 ##############################
 
 #statement is a helper function that builds a response
-#it takes a title and body to build the spoken and card output
+#it takes a title and body to build the spoken response and card output
 def statement(title, body, shouldEndSession):
     #speechlet is a dictionary that will be turned into a JSON object
     speechlet = {}
@@ -135,12 +90,8 @@ def intent_router(event, context):
 
     # Custom Intents
     if intent == "talkLikeSnoop":
-        return talkLikeSnoop_intent(event, context)
+        return talk_like_snoop_intent(event, context)
 
-
-##############################
-# Required Intents
-##############################
     # Required Intents
     if intent == "AMAZON.CancelIntent" or intent == "AMAZON.StopIntent":
         #set shouldEndSession to true
@@ -150,24 +101,3 @@ def intent_router(event, context):
         #set shouldEndSession to False
         shouldEndSession = False
         return statement("Make sure you use the word \"Say.\" or \"Translate.\" before your phrase to have snoop translizzle what you say", "Make sure you use the word \"Say.\" or \"Translate.\" before your phrase to have snoop translizzle what you say", shouldEndSession)
-
-
-##############################
-# Custom Intents
-##############################
-
-def talkLikeSnoop_intent(event, context):
-    #get the user's input
-    words = event['request']['intent']['slots']['customerQuery']['value']
-
-    #get all of the individual words from the user's input
-    words = words.split(" ")
-
-    #set a variable to catch convertedString after passing words through convertToSnoop
-    convertedString = convertToSnoop(words)
-    
-    #loop application until user quits
-    shouldEndSession = False
-    
-    #print response to the user
-    return statement("Snoop says", convertedString + "\n\n " + reprompt(), shouldEndSession)

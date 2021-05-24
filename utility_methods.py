@@ -155,3 +155,48 @@ def backward_insert(word):
                 #break the loop
                 break
         return word
+
+#main conversion function
+def convert_to_snoop(words):
+
+    #loop through words and get each individual word
+    for i in range(len(words)):
+        #get the word from the words list
+        word = words[i]
+
+        #check to see if the word is a stop word
+        if word in stop_words:
+            #skip to the next word
+            continue
+
+        #check to see if the first letter is a vowel
+        if word[0] in vowels:
+            #skip to the next word
+            continue
+        #check if word is "sure"
+        if word == 'sure':
+            word = 'shizzle'
+            continue
+        #else the word begins with a consonant
+        else:
+            #get the length of the word
+            lengthOfWord = len(word)
+
+            #check if the length is < 7 letters
+            if lengthOfWord < 7:
+                #add izz into the word
+                word = forward_insert(word)
+                #insert that word back into it's proper place
+                words[i] = word
+                #skip to the next word
+                continue
+            #otherwise the word is 7 or more letters
+            else:
+                #add izz into the word
+                word = backward_insert(word)
+                #insert that word back into it's proper place
+                words[i] = word
+                #skip to the next word
+                continue
+    #return the words split by a string
+    return " ".join(words)     
