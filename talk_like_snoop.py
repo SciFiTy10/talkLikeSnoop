@@ -1,7 +1,5 @@
 #imports
-from stop_words import stop_words   
 from messages import welcome, reprompt
-from insert_methods import forward_insert, backward_insert, convert_to_snoop
 from custom_intents import talk_like_snoop_intent
 
 ##############################

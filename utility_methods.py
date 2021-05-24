@@ -1,4 +1,5 @@
 from vowels import vowels
+from stop_words import stop_words   
 
 #function for editing from the beginning of the word
 def forward_insert(word):
