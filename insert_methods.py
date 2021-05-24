@@ -1,3 +1,19 @@
+from vowels import vowels
+
+#function for editing from the beginning of the word
+def forward_insert(word):
+    #start the loop at the beginning and add izz in front of the first vowel
+    for letter in word:
+        #if the letter is a vowel
+        if(letter in vowels):
+            #get the index of the letter
+            index = word.index(letter)
+            #insert the izz into at that index
+            word = word[:index] + 'izz' + word[index:]
+            #break the loop
+            break
+    return word
+
 #function for editing from the back of the word
 def backward_insert(word):
 
