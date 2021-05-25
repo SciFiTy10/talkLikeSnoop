@@ -1,5 +1,6 @@
 from utility_methods import convert_to_snoop
 from messages import reprompt
+from response_methods import statement
 
 def talk_like_snoop_intent(event, context):
     #get the user's input
