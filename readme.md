@@ -68,7 +68,7 @@
 ## About The Project
 
 <!--add link to main page -->
-<img src="media/main_page.png" alt="main_page" >
+<img src="skill_image.png" alt="main_page" >
 
 Welcome to the Talk Like Snoop Alexa Skill!
 
