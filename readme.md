@@ -11,7 +11,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/SciFiTy10/talkLikeSnoop">
-    <img src="media/skill_image.png" alt="Logo" width="80" height="80">
+    <img src="skill_image.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Talk Like Snoop</h3>
@@ -41,7 +41,6 @@
         <li><a href="#cicd-and-hosting">CI/CD and Hosting</a></li>
         <li><a href="#state-management">State Management</a></li>
         <li><a href="#testing">Testing</a></li>
-        <li><a href="#accessibility">Accessibility</a></li>
         <li><a href="#project-folder-structure">Project Folder Structure</a></li>
         <li><a href="#things-i-learned-and-things-i-wouldve-done-differently">Things I Learned and Things I Would've Done Differently</a></li>
       </ul>
